@@ -38,7 +38,7 @@ usage() {
     exit 1
 }
 
-if [ $1 = "--version" ]; then
+if [ "$1" = "--version" ]; then
     echo "$SCRIPT_NAME $SCRIPT_VERSION"
     exit
 fi
