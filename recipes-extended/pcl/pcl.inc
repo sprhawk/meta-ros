@@ -41,6 +41,9 @@ PACKAGECONFIG[visualization] = "-DBUILD_visualization=ON -DWITH_VTK=ON,-DBUILD_v
 PACKAGECONFIG[qt] = "-DWITH_QT=ON,-DWITH_QT=OFF,qtbase,"
 PACKAGECONFIG[examples] = "-DBUILD_examples=ON,-DBUILD_examples=OFF,virtual/libgl,"
 
+MAJ_VER = "${@oe.utils.trim_version("${PV}", 2)}"
+FILES_${PN}-dev += "${datadir}/${PN}-${MAJ_VER}/*.cmake"
+
 inherit cmake
 
 # The build is really memory hungry (at least with gcc8), even with just -j 8 it triggers OOMK on system with 32GB ram

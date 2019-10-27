@@ -8,5 +8,3 @@ SRC_URI += "file://0001-Dereference-shared_ptr-fix-for-GCC8.patch \
            "
 
 
-FILES_${PN}-dev += "${datadir}/${PN}-1.8/*.cmake"
-
