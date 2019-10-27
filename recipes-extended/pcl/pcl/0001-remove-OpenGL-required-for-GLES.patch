@@ -1,0 +1,22 @@
+From 46cb50dc0aa658f932eef44635d7ccfb57835fad Mon Sep 17 00:00:00 2001
+From: sprhawk <465558+sprhawk@users.noreply.github.com>
+Date: Sat, 26 Oct 2019 07:19:11 +0800
+Subject: [PATCH] remove OpenGL required for GLES
+
+---
+ cmake/pcl_find_gl.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/pcl_find_gl.cmake b/cmake/pcl_find_gl.cmake
+index d34f26f..2d50713 100644
+--- a/cmake/pcl_find_gl.cmake
++++ b/cmake/pcl_find_gl.cmake
+@@ -3,7 +3,7 @@
+ # OPENGL_IS_A_FRAMEWORK
+ # GLUT_IS_A_FRAMEWORK
+ 
+-find_package(OpenGL QUIET REQUIRED)
++find_package(OpenGL QUIET )
+ 
+ if(APPLE AND OPENGL_FOUND)
+   if ("${OPENGL_INCLUDE_DIR}" MATCHES "\\.framework")

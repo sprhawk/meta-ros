@@ -18,23 +18,28 @@ EXTRA_OECMAKE += "\
    ${@bb.utils.contains("TARGET_CC_ARCH", "-msse3", "-DHAVE_SSE3_EXTENSIONS_EXITCODE=0", "-DHAVE_SSE3_EXTENSIONS_EXITCODE=1", d)} \
    ${@bb.utils.contains("TARGET_CC_ARCH", "-msse2", "-DHAVE_SSE2_EXTENSIONS_EXITCODE=0", "-DHAVE_SSE2_EXTENSIONS_EXITCODE=1", d)} \
    ${@bb.utils.contains("TARGET_CC_ARCH", "-msse", "-DHAVE_SSE_EXTENSIONS_EXITCODE=0", "-DHAVE_SSE_EXTENSIONS_EXITCODE=1", d)} \
-  -DWITH_LIBUSB=FALSE \
-  -DWITH_PNG=FALSE \
   -DWITH_QHULL=TRUE \
   -DWITH_CUDA=FALSE \
-  -DWITH_QT=FALSE \
-  -DWITH_VTK=FALSE \
   -DWITH_PCAP=FALSE \
-  -DWITH_OPENGL=FALSE \
   -DWITH_OPENNI=FALSE \
   -DWITH_OPENNI2=FALSE \
-  -DBUILD_simulation=FALSE \
 "
 
 S = "${WORKDIR}/pcl-${P}"
 
 #Setting -ffloat-store to alleviate 32bit vs 64bit discrepancies on non-SSE platforms.
 CXXFLAGS += "${@bb.utils.contains("TARGET_CC_ARCH", "-mfpmath=sse", "", "-ffloat-store", d)}"
+
+PACKAGECONFIG ??= ""
+
+PACKAGECONFIG[png] = "-DWITH_PNG=TRUE,-DWITH_PNG=FALSE,libpng,"
+PACKAGECONFIG[libusb] = "-DWITH_LIBUSB=TRUE,-DWITH_LIBUSB=FALSE,libusb,"
+PACKAGECONFIG[opengl] = "-DWITH_OPENGL=TRUE,-DWITH_OPENGL=FALSE,virtual/libgl freeglut"
+PACKAGECONFIG[apps] = "-DBUILD_apps=ON,-DBUILD_apps=OFF,virtual/libgl,"
+PACKAGECONFIG[simulation] = "-DBUILD_simulation=ON,-DBUILD_simulation=OFF,,"
+PACKAGECONFIG[visualization] = "-DBUILD_visualization=ON -DWITH_VTK=ON,-DBUILD_visualization=OFF -DWITH_VTK=OFF,vtk,"
+PACKAGECONFIG[qt] = "-DWITH_QT=ON,-DWITH_QT=OFF,qtbase,"
+PACKAGECONFIG[examples] = "-DBUILD_examples=ON,-DBUILD_examples=OFF,virtual/libgl,"
 
 inherit cmake
 
