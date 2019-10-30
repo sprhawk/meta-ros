@@ -1,0 +1,22 @@
+From 31b8655f88e03fc328b7489dadd366234e2ec46a Mon Sep 17 00:00:00 2001
+From: sprhawk <465558+sprhawk@users.noreply.github.com>
+Date: Tue, 29 Oct 2019 22:03:36 +0800
+Subject: [PATCH] fix configure to search for icon-name-mapping
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 90ed6ca..bd3069f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -33,7 +33,7 @@ PKG_CHECK_EXISTS(icon-naming-utils >= $UTILS_REQUIRED,
+                  have_utils=yes, have_utils=no)
+ if test "x$have_utils" = "xyes"; then
+    UTILS_PATH="`$PKG_CONFIG --variable=program_path icon-naming-utils`"
+-   ICONMAP="$UTILS_PATH/icon-name-mapping"
++   ICONMAP="${STAGING_DIR_NATIVE}/$UTILS_PATH/icon-name-mapping"
+    AC_SUBST(ICONMAP)
+    AC_MSG_RESULT([yes])
+ else
